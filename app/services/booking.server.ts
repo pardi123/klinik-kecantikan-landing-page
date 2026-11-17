@@ -1,4 +1,4 @@
-import { CONSULTATION_ID, services, whatsappLink } from '~/constants/clinic'
+import { bookingOptionNames, whatsappLink } from '~/constants/clinic'
 import type { BookingInput } from '~/schemas/booking'
 
 export class BookingApiError extends Error {
@@ -8,17 +8,12 @@ export class BookingApiError extends Error {
   }
 }
 
-function serviceName(id: string) {
-  if (id === CONSULTATION_ID) return 'Konsultasi'
-  return services.find((service) => service.id === id)?.name ?? id
-}
-
 export function bookingWhatsappMessage(input: BookingInput) {
   return [
     `Halo, saya mau booking.`,
     `Nama: ${input.name}`,
     `No. WA: ${input.phone}`,
-    `Treatment: ${serviceName(input.service)}`,
+    `Treatment: ${bookingOptionNames.get(input.service)}`,
     `Tanggal: ${input.date}`,
     input.notes ? `Catatan: ${input.notes}` : '',
   ]

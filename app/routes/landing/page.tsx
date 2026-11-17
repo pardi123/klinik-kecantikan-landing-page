@@ -1,6 +1,7 @@
 import { data } from 'react-router'
+import { z } from 'zod'
 import { clinic } from '~/constants/clinic'
-import { bookingSchema } from '~/schemas/booking'
+import { type BookingResult, bookingSchema } from '~/schemas/booking'
 import { BookingApiError, createBooking } from '~/services/booking.server'
 import type { Route } from './+types/page'
 import { BookingSection } from './sections/booking-section'
@@ -26,18 +27,21 @@ export async function action({ request }: Route.ActionArgs) {
   const parsed = bookingSchema.safeParse(Object.fromEntries(formData))
 
   if (!parsed.success) {
-    return data(
-      { ok: false as const, fieldErrors: parsed.error.flatten().fieldErrors, error: null },
-      { status: 400 }
-    )
+    const result: BookingResult = {
+      status: 'invalid',
+      fieldErrors: z.flattenError(parsed.error).fieldErrors,
+    }
+    return data(result, { status: 400 })
   }
 
   try {
     const { whatsappUrl } = await createBooking(parsed.data)
-    return { ok: true as const, whatsappUrl }
+    const result: BookingResult = { status: 'sent', whatsappUrl }
+    return data(result)
   } catch (err) {
     if (err instanceof BookingApiError) {
-      return data({ ok: false as const, fieldErrors: {}, error: err.message }, { status: 502 })
+      const result: BookingResult = { status: 'failed', message: err.message }
+      return data(result, { status: 502 })
     }
     throw err
   }

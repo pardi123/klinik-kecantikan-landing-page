@@ -1,51 +1,45 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFetcher, useSearchParams } from 'react-router'
 import { toast } from 'sonner'
+import { FormField } from '~/components/form-field'
 import { Reveal } from '~/components/reveal'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
 import { NativeSelect } from '~/components/ui/native-select'
 import { Textarea } from '~/components/ui/textarea'
-import { CONSULTATION_ID, clinic, services } from '~/constants/clinic'
-import type { BookingFieldErrors } from '~/schemas/booking'
-import type { action } from '../page'
-
-function FieldError({ messages }: { messages?: string[] }) {
-  if (!messages?.length) return null
-  return <p className="text-error-600 text-sm">{messages[0]}</p>
-}
+import {
+  bookingOptionNames,
+  bookingOptions,
+  clinic,
+  DEFAULT_BOOKING_OPTION,
+} from '~/constants/clinic'
+import { todayInClinic } from '~/lib/date'
+import type { BookingResult } from '~/schemas/booking'
 
 export function BookingSection() {
-  const fetcher = useFetcher<typeof action>()
+  const fetcher = useFetcher<BookingResult>()
   const formRef = useRef<HTMLFormElement>(null)
   const [searchParams] = useSearchParams()
   const isSubmitting = fetcher.state !== 'idle'
+  const result = isSubmitting ? undefined : fetcher.data
 
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
+  const today = useMemo(() => todayInClinic(), [])
   const defaultService = useMemo(() => {
     const requested = searchParams.get('treatment')
-    return services.some((service) => service.id === requested)
-      ? (requested as string)
-      : CONSULTATION_ID
+    return requested && bookingOptionNames.has(requested) ? requested : DEFAULT_BOOKING_OPTION
   }, [searchParams])
 
-  const fieldErrors: BookingFieldErrors =
-    fetcher.data && !fetcher.data.ok ? fetcher.data.fieldErrors : {}
+  const fieldErrors = result?.status === 'invalid' ? result.fieldErrors : {}
 
   useEffect(() => {
-    if (fetcher.state !== 'idle' || !fetcher.data) return
-
-    if (fetcher.data.ok) {
+    if (result?.status === 'sent') {
       toast.success('Booking terkirim! Lanjutkan konfirmasi lewat WhatsApp.')
       formRef.current?.reset()
-      window.open(fetcher.data.whatsappUrl, '_blank', 'noopener')
-      return
     }
-    if (fetcher.data.error) {
-      toast.error(fetcher.data.error)
+    if (result?.status === 'failed') {
+      toast.error(result.message)
     }
-  }, [fetcher.state, fetcher.data])
+  }, [result])
 
   return (
     <section id="booking" className="bg-blush scroll-mt-24">
@@ -76,8 +70,7 @@ export function BookingSection() {
             noValidate
             className="shadow-theme-md flex flex-col gap-4 rounded-3xl bg-white p-8"
           >
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="name">Nama lengkap</Label>
+            <FormField id="name" label="Nama lengkap" errors={fieldErrors.name}>
               <Input
                 id="name"
                 name="name"
@@ -85,10 +78,8 @@ export function BookingSection() {
                 placeholder="Nama kamu"
                 aria-invalid={Boolean(fieldErrors.name)}
               />
-              <FieldError messages={fieldErrors.name} />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="phone">Nomor WhatsApp</Label>
+            </FormField>
+            <FormField id="phone" label="Nomor WhatsApp" errors={fieldErrors.phone}>
               <Input
                 id="phone"
                 name="phone"
@@ -98,10 +89,8 @@ export function BookingSection() {
                 placeholder="08xx-xxxx-xxxx"
                 aria-invalid={Boolean(fieldErrors.phone)}
               />
-              <FieldError messages={fieldErrors.phone} />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="service">Treatment yang diminati</Label>
+            </FormField>
+            <FormField id="service" label="Treatment yang diminati" errors={fieldErrors.service}>
               <NativeSelect
                 key={defaultService}
                 id="service"
@@ -109,17 +98,14 @@ export function BookingSection() {
                 defaultValue={defaultService}
                 aria-invalid={Boolean(fieldErrors.service)}
               >
-                <option value={CONSULTATION_ID}>Konsultasi dulu</option>
-                {services.map((service) => (
-                  <option key={service.id} value={service.id}>
-                    {service.name}
+                {bookingOptions.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
                   </option>
                 ))}
               </NativeSelect>
-              <FieldError messages={fieldErrors.service} />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="date">Tanggal kunjungan</Label>
+            </FormField>
+            <FormField id="date" label="Tanggal kunjungan" errors={fieldErrors.date}>
               <Input
                 id="date"
                 name="date"
@@ -127,20 +113,25 @@ export function BookingSection() {
                 min={today}
                 aria-invalid={Boolean(fieldErrors.date)}
               />
-              <FieldError messages={fieldErrors.date} />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="notes">Catatan (opsional)</Label>
+            </FormField>
+            <FormField id="notes" label="Catatan (opsional)" errors={fieldErrors.notes}>
               <Textarea
                 id="notes"
                 name="notes"
                 rows={3}
                 placeholder="Keluhan kulit, jam yang diinginkan, dll."
               />
-            </div>
+            </FormField>
             <Button type="submit" size="lg" disabled={isSubmitting} className="mt-2 rounded-full">
               {isSubmitting ? 'Mengirim…' : 'Kirim & Booking'}
             </Button>
+            {result?.status === 'sent' && (
+              <Button asChild size="lg" variant="outline" className="rounded-full">
+                <a href={result.whatsappUrl} target="_blank" rel="noreferrer">
+                  Lanjut konfirmasi di WhatsApp →
+                </a>
+              </Button>
+            )}
           </fetcher.Form>
         </Reveal>
       </div>

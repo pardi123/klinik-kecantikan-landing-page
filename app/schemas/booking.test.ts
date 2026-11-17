@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { bookingSchema } from './booking'
 
-const tomorrow = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10)
+const tomorrow = new Date(Date.now() + 2 * 86_400_000).toISOString().slice(0, 10)
 
 const valid = {
   name: 'Rina',
