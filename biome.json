@@ -1,0 +1,182 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.6.8/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true,
+        "defaultBranch": "main"
+    },
+    "files": {
+        "ignoreUnknown": true,
+        "includes": ["**", "!**/.worktrees", "!**/build", "!**/node_modules", "!**/.react-router"]
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 100
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "a11y": {
+                "noSvgWithoutTitle": "off",
+                "useKeyWithClickEvents": "off",
+                "useSemanticElements": "off",
+                "useValidAnchor": "off",
+                "noLabelWithoutControl": "off"
+            },
+            "complexity": {
+                "noBannedTypes": "off",
+                "noUselessFragments": "warn"
+            },
+            "correctness": {
+                "noUnusedImports": {
+                    "level": "error",
+                    "fix": "safe"
+                },
+                "noUnusedVariables": {
+                    "level": "warn",
+                    "fix": "none",
+                    "options": {
+                        "ignoreRestSiblings": true
+                    }
+                },
+                "noChildrenProp": "off",
+                "noUnknownFunction": "off",
+                "useJsxKeyInIterable": "error"
+            },
+            "nursery": {
+                "useTailwindSortedClasses": {
+                    "level": "warn",
+                    "fix": "safe"
+                }
+            },
+            "performance": {
+                "noReExportAll": "off"
+            },
+            "security": {
+                "noDangerouslySetInnerHtmlWithChildren": "warn",
+                "noDangerouslySetInnerHtml": "off"
+            },
+            "style": {
+                "noNonNullAssertion": "off",
+                "noParameterAssign": "warn",
+                "useAsConstAssertion": "error",
+                "useDefaultParameterLast": "error",
+                "useEnumInitializers": "error",
+                "useSelfClosingElements": "info",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "off",
+                "useNumberNamespace": "error",
+                "noInferrableTypes": "error",
+                "noUselessElse": "error",
+                "useConsistentArrayType": "warn",
+                "useExportType": "warn",
+                "useImportType": {
+                    "level": "off",
+                    "fix": "none",
+                    "options": {
+                        "style": "auto"
+                    }
+                },
+                "useFilenamingConvention": {
+                    "level": "off",
+                    "options": {
+                        "filenameCases": ["PascalCase", "camelCase", "kebab-case"]
+                    }
+                }
+            },
+            "suspicious": {
+                "noArrayIndexKey": "warn",
+                "noAssignInExpressions": "off",
+                "noCommentText": "off",
+                "noDebugger": "off",
+                "noExplicitAny": "off",
+                "noConsole": {
+                    "level": "warn",
+                    "fix": "none",
+                    "options": {
+                        "allow": [
+                            "assert",
+                            "error",
+                            "info",
+                            "warn",
+                            "debug",
+                            "time",
+                            "timeEnd",
+                            "timeLog"
+                        ]
+                    }
+                },
+                "noDuplicateAtImportRules": "error",
+                "noEmptyBlock": "warn"
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "indentWidth": 2,
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "double",
+            "arrowParentheses": "always",
+            "semicolons": "asNeeded",
+            "trailingCommas": "es5",
+            "quoteProperties": "asNeeded",
+            "bracketSpacing": true,
+            "bracketSameLine": false
+        }
+    },
+    "css": {
+        "parser": {
+            "allowWrongLineComments": false,
+            "tailwindDirectives": true
+        },
+        "formatter": {
+            "enabled": true,
+            "quoteStyle": "double"
+        }
+    },
+    "json": {
+        "formatter": {
+            "indentWidth": 4,
+            "trailingCommas": "none"
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["!**/*.astro"],
+            "linter": {
+                "rules": {
+                    "correctness": {
+                        "noUnusedImports": "off",
+                        "noUnusedVariables": "off"
+                    },
+                    "style": {
+                        "useConst": "off",
+                        "useImportType": "off"
+                    }
+                }
+            },
+            "formatter": {
+                "indentWidth": 2,
+                "bracketSpacing": true
+            }
+        }
+    ],
+    "tailwind": {
+        "attributes": ["class", "className", "classList"],
+        "mergeFunctions": ["clsx", "cn", "cx", "tw"],
+        "variantFunctions": ["cva", "tv"]
+    }
+}

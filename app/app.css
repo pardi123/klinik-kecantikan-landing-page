@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Palet "Soft Elegan": krem + dusty rose. Nama token (brand-*, gray-*,
+ * error-*, shadow-theme-*) sama dengan otwviral.com supaya komponen
+ * shadcn yang disalin dari sana langsung ikut warna klinik.
+ */
+@theme {
+    --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+    --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-25: #fdf8f9;
+    --color-brand-50: #fbf1f3;
+    --color-brand-100: #f5e1e6;
+    --color-brand-200: #ebc4ce;
+    --color-brand-300: #d99aaa;
+    --color-brand-400: #c27387;
+    --color-brand-500: #8e4a5c;
+    --color-brand-600: #77394a;
+    --color-brand-700: #602c3b;
+    --color-brand-800: #4a222e;
+    --color-brand-900: #331820;
+
+    --color-cream: #fbf7f4;
+    --color-blush: #f3e9e4;
+    --color-sand: #ebddd6;
+
+    --color-gray-25: #fdfbf9;
+    --color-gray-50: #fbf7f4;
+    --color-gray-100: #f3e9e4;
+    --color-gray-200: #efe4df;
+    --color-gray-300: #d8c8c1;
+    --color-gray-400: #a8958e;
+    --color-gray-500: #6b5853;
+    --color-gray-600: #5c4d49;
+    --color-gray-700: #463935;
+    --color-gray-800: #2b2220;
+    --color-gray-900: #1e1716;
+
+    --color-success-50: #ecfdf3;
+    --color-success-500: #12b76a;
+    --color-success-700: #027a48;
+    --color-error-50: #fef3f2;
+    --color-error-100: #fee4e2;
+    --color-error-500: #f04438;
+    --color-error-600: #d92d20;
+    --color-error-700: #b42318;
+
+    --text-theme-sm: 14px;
+    --text-theme-sm--line-height: 20px;
+    --text-theme-xs: 12px;
+    --text-theme-xs--line-height: 18px;
+
+    --shadow-theme-xs: 0px 1px 2px 0px rgba(43, 34, 32, 0.05);
+    --shadow-theme-md:
+        0px 4px 8px -2px rgba(43, 34, 32, 0.08), 0px 2px 4px -2px rgba(43, 34, 32, 0.04);
+    --shadow-theme-lg: 0px 18px 40px -12px rgba(43, 34, 32, 0.14);
+}
+
+@theme inline {
+    --font-heading: var(--font-serif);
+    --font-sans: var(--font-body);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+    --background: #fbf7f4;
+    --foreground: #2b2220;
+    --card: #ffffff;
+    --card-foreground: #2b2220;
+    --popover: #ffffff;
+    --popover-foreground: #2b2220;
+    --primary: #8e4a5c;
+    --primary-foreground: #ffffff;
+    --secondary: #f3e9e4;
+    --secondary-foreground: #2b2220;
+    --muted: #f3e9e4;
+    --muted-foreground: #5c4d49;
+    --accent: #f3e9e4;
+    --accent-foreground: #2b2220;
+    --destructive: #d92d20;
+    --border: #efe4df;
+    --input: #d8c8c1;
+    --ring: #d99aaa;
+    --radius: 0.75rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    @apply bg-background text-foreground font-sans antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

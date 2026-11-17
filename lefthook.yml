@@ -1,0 +1,18 @@
+# Sama dengan imigrasi: commit hanya di branch fitur, biome check file yang di-stage,
+# dan typecheck kalau ada file app/ yang berubah.
+pre-commit:
+    parallel: true
+    jobs:
+        - name: block commit on main
+          run: |
+              if [ "$(git branch --show-current)" = main ]; then
+                echo "Commit on a feature/bugfix/chore branch, not main." >&2
+                exit 1
+              fi
+        - name: lint frontend
+          run: pnpm exec biome check --write {staged_files}
+          glob: "*.{js,ts,jsx,tsx,json,css}"
+          stage_fixed: true
+        - name: typecheck
+          run: pnpm typecheck
+          glob: "app/**/*.{ts,tsx}"
