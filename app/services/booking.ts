@@ -22,12 +22,13 @@ export function bookingWhatsappMessage(input: BookingInput) {
 }
 
 /**
- * Kirim booking ke sistem klinik kalau `BOOKING_API_URL` sudah diisi.
+ * Kirim booking ke sistem klinik kalau `VITE_BOOKING_API_URL` sudah diisi.
+ * Jalan di browser, jadi bisa dipakai di hosting statis (GitHub Pages).
  * Sebelum backend-nya ada, booking diteruskan lewat WhatsApp saja.
  */
 export async function createBooking(input: BookingInput) {
   const whatsappUrl = whatsappLink(bookingWhatsappMessage(input))
-  const apiUrl = process.env.BOOKING_API_URL
+  const apiUrl = import.meta.env.VITE_BOOKING_API_URL
 
   if (!apiUrl) {
     return { whatsappUrl }

@@ -1,6 +1,7 @@
-import { ImageSlot } from '~/components/image-slot'
+import { BeforeAfterSlider } from '~/components/before-after-slider'
 import { Reveal } from '~/components/reveal'
-import { testimonials } from '~/constants/clinic'
+import { TestimonialCarousel } from '~/components/testimonial-carousel'
+import { beforeAfter } from '~/constants/clinic'
 
 export function ResultsSection() {
   return (
@@ -10,28 +11,18 @@ export function ResultsSection() {
           Hasil &amp; cerita pasien
         </h2>
       </Reveal>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
         <Reveal>
-          <figure className="flex h-full flex-col gap-3 rounded-[20px] border border-gray-200 bg-white p-4">
-            <div className="grid grid-cols-2 gap-2">
-              <ImageSlot alt="Sebelum" className="h-[180px] rounded-xl" />
-              <ImageSlot alt="Sesudah" className="h-[180px] rounded-xl" />
-            </div>
-            <figcaption className="text-sm text-gray-600">
-              [Nama treatment] · [jumlah sesi]
+          <figure className="flex h-full flex-col rounded-[20px] border border-gray-200 bg-white p-4">
+            <BeforeAfterSlider before={beforeAfter.before} after={beforeAfter.after} />
+            <figcaption className="mt-1 text-sm text-gray-600">
+              {beforeAfter.treatment} · {beforeAfter.sessions}
             </figcaption>
           </figure>
         </Reveal>
-        {testimonials.map((item, index) => (
-          <Reveal key={item.id} delay={(index + 1) * 0.1}>
-            <blockquote className="bg-blush flex h-full flex-col gap-4 rounded-[20px] p-8">
-              <p className="font-heading text-[26px] leading-snug italic">“{item.quote}”</p>
-              <cite className="text-sm text-gray-600 not-italic">
-                — {item.author}, {item.treatment}
-              </cite>
-            </blockquote>
-          </Reveal>
-        ))}
+        <Reveal delay={0.1}>
+          <TestimonialCarousel />
+        </Reveal>
       </div>
     </section>
   )

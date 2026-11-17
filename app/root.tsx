@@ -15,7 +15,7 @@ export const links: Route.LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400..700&display=swap',
   },
-  { rel: 'icon', type: 'image/png', href: '/images/logo.png' },
+  { rel: 'icon', type: 'image/png', href: `${import.meta.env.BASE_URL}images/logo.png` },
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {

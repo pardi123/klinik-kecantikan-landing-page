@@ -1,9 +1,9 @@
-import { data } from 'react-router'
 import { z } from 'zod'
 import { clinic } from '~/constants/clinic'
 import { type BookingResult, bookingSchema } from '~/schemas/booking'
-import { BookingApiError, createBooking } from '~/services/booking.server'
+import { BookingApiError, createBooking } from '~/services/booking'
 import type { Route } from './+types/page'
+import { AmbassadorSection } from './sections/ambassador-section'
 import { BookingSection } from './sections/booking-section'
 import { DoctorSection } from './sections/doctor-section'
 import { HeroSection } from './sections/hero-section'
@@ -22,26 +22,20 @@ export function meta(_props: Route.MetaArgs) {
   ]
 }
 
-export async function action({ request }: Route.ActionArgs) {
+export async function clientAction({ request }: Route.ClientActionArgs): Promise<BookingResult> {
   const formData = await request.formData()
   const parsed = bookingSchema.safeParse(Object.fromEntries(formData))
 
   if (!parsed.success) {
-    const result: BookingResult = {
-      status: 'invalid',
-      fieldErrors: z.flattenError(parsed.error).fieldErrors,
-    }
-    return data(result, { status: 400 })
+    return { status: 'invalid', fieldErrors: z.flattenError(parsed.error).fieldErrors }
   }
 
   try {
     const { whatsappUrl } = await createBooking(parsed.data)
-    const result: BookingResult = { status: 'sent', whatsappUrl }
-    return data(result)
+    return { status: 'sent', whatsappUrl }
   } catch (err) {
     if (err instanceof BookingApiError) {
-      const result: BookingResult = { status: 'failed', message: err.message }
-      return data(result, { status: 502 })
+      return { status: 'failed', message: err.message }
     }
     throw err
   }
@@ -52,6 +46,7 @@ export default function Page() {
     <main id="top">
       <HeroSection />
       <HighlightsSection />
+      <AmbassadorSection />
       <ServicesSection />
       <DoctorSection />
       <ResultsSection />

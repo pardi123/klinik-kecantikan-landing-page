@@ -1,7 +1,8 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { ImageSlot } from '~/components/image-slot'
 import { Button } from '~/components/ui/button'
-import { clinic } from '~/constants/clinic'
+import { clinic, photos } from '~/constants/clinic'
+import { cn } from '~/lib/utils'
 
 const stagger: Variants = { show: { transition: { staggerChildren: 0.1 } } }
 
@@ -9,6 +10,14 @@ const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
 }
+
+const word: Variants = {
+  hidden: { opacity: 0, y: '0.4em' },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+}
+
+const HEADLINE = 'Kulit sehat yang terlihat alami, dirawat oleh dokter.'
+const HIGHLIGHT = 'alami,'
 
 const zoomIn: Variants = {
   hidden: { opacity: 0, scale: 0.96 },
@@ -33,10 +42,11 @@ export function HeroSection() {
           {clinic.tagline}
         </motion.p>
         <motion.h1
-          variants={fadeUp}
+          variants={stagger}
+          aria-label={HEADLINE}
           className="font-heading text-[clamp(44px,6vw,72px)] leading-[1.05] font-medium"
         >
-          Kulit sehat yang terlihat <em className="text-brand-500">alami</em>, dirawat oleh dokter.
+          <HeadlineWords />
         </motion.h1>
         <motion.p variants={fadeUp} className="max-w-[520px] text-lg text-gray-600">
           Perawatan wajah dan tubuh yang disesuaikan dengan kondisi kulitmu — dimulai dari
@@ -56,12 +66,47 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </motion.div>
-      <motion.div variants={zoomIn} className="min-w-0 flex-[1_1_380px]">
-        <ImageSlot
-          alt="Foto utama: model / suasana klinik"
-          className="h-[520px] w-full rounded-t-[240px] rounded-b-3xl"
-        />
+      <motion.div variants={zoomIn} className="relative min-w-0 flex-[1_1_380px]">
+        <div className="h-[520px] w-full overflow-hidden rounded-t-[240px] rounded-b-3xl">
+          <ImageSlot
+            src={photos.hero}
+            alt={`Resepsionis klinik ${clinic.name}`}
+            className="motion-safe:animate-breathe h-full w-full object-[50%_60%]"
+          />
+        </div>
+        <motion.figure
+          variants={fadeUp}
+          className="shadow-theme-lg absolute -bottom-8 -left-4 w-[220px] overflow-hidden rounded-2xl border-4 border-white bg-white sm:-left-10"
+        >
+          <img
+            src={photos.ambassadorPortrait}
+            alt={`Brand ambassador ${clinic.name}`}
+            width={436}
+            height={326}
+            className="h-[165px] w-full object-cover"
+          />
+          <figcaption className="px-3 py-2 text-xs font-semibold tracking-wide text-gray-600">
+            Brand Ambassador
+          </figcaption>
+        </motion.figure>
       </motion.div>
     </motion.section>
   )
+}
+
+/** Judul muncul per kata; kata kunci berubah jadi rose setelah semua kata tampil. */
+function HeadlineWords() {
+  return HEADLINE.split(' ').map((text) => (
+    <motion.span
+      key={text}
+      aria-hidden="true"
+      variants={word}
+      className={cn(
+        'mr-[0.25em] inline-block',
+        text === HIGHLIGHT && 'text-brand-500 motion-safe:animate-ink italic'
+      )}
+    >
+      {text}
+    </motion.span>
+  ))
 }

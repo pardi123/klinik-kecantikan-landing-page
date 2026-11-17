@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router'
+import { FloatingWhatsapp } from '~/components/floating-whatsapp'
 import { SiteFooter } from '~/components/site-footer'
 import { SiteHeader } from '~/components/site-header'
 
@@ -8,6 +9,7 @@ export default function SiteLayout() {
       <SiteHeader />
       <Outlet />
       <SiteFooter />
+      <FloatingWhatsapp />
     </div>
   )
 }
