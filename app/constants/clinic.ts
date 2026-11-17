@@ -10,6 +10,7 @@ export const clinic = {
   whatsappNumber: '[6281234567890]',
   instagram: 'https://instagram.com/[namaklinik]',
   tiktok: 'https://tiktok.com/@[namaklinik]',
+  timeZone: 'Asia/Jakarta',
 }
 
 export const navLinks = [
@@ -25,8 +26,6 @@ export const highlights = [
   { title: 'Analisa kulit', body: 'Rencana perawatan sesuai jenis kulitmu.' },
   { title: 'Ruang privat', body: 'Nyaman, bersih, dan tenang.' },
 ]
-
-export const CONSULTATION_ID = 'konsultasi'
 
 export type Service = {
   id: string
@@ -75,10 +74,19 @@ export const services: Service[] = [
   },
 ]
 
-export const doctor = {
+/** Pilihan di form booking: konsultasi dulu, lalu semua treatment. */
+export const bookingOptions = [
+  { id: 'konsultasi', name: 'Konsultasi dulu' },
+  ...services.map(({ id, name }) => ({ id, name })),
+]
+
+export const DEFAULT_BOOKING_OPTION = bookingOptions[0].id
+
+export const bookingOptionNames = new Map(bookingOptions.map(({ id, name }) => [id, name]))
+
+export const doctor: { name: string; bio: string; image?: string } = {
   name: '[Nama Dokter], [Gelar]',
   bio: '[Ringkasan pengalaman, sertifikasi, dan spesialisasi dokter. Tulis dengan nada hangat dan meyakinkan.]',
-  image: undefined as string | undefined,
 }
 
 export const testimonials = [
