@@ -1,3 +1,5 @@
+import { priceList } from '~/constants/price-list'
+
 // Semua isi klinik di satu tempat. Ganti nilai dalam [kurung siku] dengan
 // data asli; komponen halaman membaca dari sini.
 
@@ -10,8 +12,9 @@ export const clinic = {
   hours: '[Senin–Sabtu, 10.00–20.00]',
   // Format internasional tanpa "+" atau spasi, contoh: 6281234567890
   whatsappNumber: '6281272526266',
-  instagram: 'https://instagram.com/[namaklinik]',
-  tiktok: 'https://tiktok.com/@[namaklinik]',
+  instagram: 'https://www.instagram.com/zeetabeautycare_jambi',
+  tiktok: 'https://www.tiktok.com/@zeetabeautycarejmb',
+  facebook: 'https://www.facebook.com/share/1CKxnyU4b7/',
   timeZone: 'Asia/Jakarta',
 }
 
@@ -31,6 +34,7 @@ export const photos = {
 
 export const navLinks = [
   { href: '#layanan', label: 'Layanan' },
+  { href: '#harga', label: 'Harga' },
   { href: '#dokter', label: 'Dokter' },
   { href: '#brand-ambassador', label: 'Ambassador' },
   { href: '#hasil', label: 'Hasil' },
@@ -71,59 +75,20 @@ export const ambassadors = [
   { name: 'Leni Ari Minanti', image: image('ba-leni.jpg') },
 ]
 
-export type Service = {
-  id: string
-  name: string
-  description: string
-  price: string
-  image?: string
-}
-
-export const services: Service[] = [
-  {
-    id: 'facial-glow',
-    name: 'Facial Glow',
-    description: 'Membersihkan, mengeksfoliasi, dan menghidrasi untuk kulit cerah.',
-    price: 'Rp150.000',
-    image: image('facial.jpg'),
-  },
-  {
-    id: 'acne',
-    name: 'Acne Treatment',
-    description: 'Perawatan jerawat aktif dan bekasnya, dipantau dokter.',
-    price: 'Rp200.000',
-  },
-  {
-    id: 'peeling',
-    name: 'Chemical Peeling',
-    description: 'Meratakan tekstur dan warna kulit secara bertahap.',
-    price: 'Rp250.000',
-  },
-  {
-    id: 'laser',
-    name: 'Laser Rejuvenation',
-    description: 'Menyamarkan flek, pori besar, dan tanda penuaan.',
-    price: 'Rp500.000',
-  },
-  {
-    id: 'skin-booster',
-    name: 'Skin Booster',
-    description: 'Hidrasi dari dalam untuk kulit kenyal dan lembap.',
-    price: 'Rp1.500.000',
-    image: image('skin-booster.jpg'),
-  },
-  {
-    id: 'botox-filler',
-    name: 'Botox & Filler',
-    description: 'Kontur wajah natural, dikerjakan langsung oleh dokter.',
-    price: 'Rp2.500.000',
-  },
+/** Kategori yang tampil sebagai kartu "Treatment favorit"; isi & harga dari price list. */
+export const featuredTreatments: { categoryId: string; image?: string }[] = [
+  { categoryId: 'facial', image: image('facial.jpg') },
+  { categoryId: 'peeling', image: image('peeling.jpg') },
+  { categoryId: 'laser', image: image('laser.jpg') },
+  { categoryId: 'skin-booster', image: image('skin-booster.jpg') },
+  { categoryId: 'botox' },
+  { categoryId: 'filler' },
 ]
 
-/** Pilihan di form booking: konsultasi dulu, lalu semua treatment. */
+/** Pilihan di form booking: konsultasi dulu, lalu semua kategori price list. */
 export const bookingOptions = [
   { id: 'konsultasi', name: 'Konsultasi dulu' },
-  ...services.map(({ id, name }) => ({ id, name })),
+  ...priceList.map(({ id, name }) => ({ id, name })),
 ]
 
 export const DEFAULT_BOOKING_OPTION = bookingOptions[0].id
@@ -174,3 +139,15 @@ export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encod
 export function whatsappLink(message: string) {
   return `https://wa.me/${clinic.whatsappNumber}?text=${encodeURIComponent(message)}`
 }
+
+/** Akun sosial media yang tampil di navbar & footer. */
+export const socialLinks = [
+  { id: 'instagram', label: 'Instagram', href: clinic.instagram },
+  { id: 'tiktok', label: 'TikTok', href: clinic.tiktok },
+  { id: 'facebook', label: 'Facebook', href: clinic.facebook },
+  {
+    id: 'whatsapp',
+    label: 'WhatsApp',
+    href: whatsappLink('Halo Zeeta, saya mau tanya soal treatment.'),
+  },
+] as const

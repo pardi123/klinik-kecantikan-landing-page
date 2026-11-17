@@ -6,7 +6,7 @@ const tomorrow = new Date(Date.now() + 2 * 86_400_000).toISOString().slice(0, 10
 const valid = {
   name: 'Rina',
   phone: '0812-3456-7890',
-  service: 'facial-glow',
+  service: 'facial',
   date: tomorrow,
 }
 

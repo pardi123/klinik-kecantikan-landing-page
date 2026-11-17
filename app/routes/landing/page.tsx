@@ -8,6 +8,7 @@ import { BrandAmbassadorSection } from './sections/brand-ambassador-section'
 import { DoctorSection } from './sections/doctor-section'
 import { HeroSection } from './sections/hero-section'
 import { HighlightsSection } from './sections/highlights-section'
+import { PriceListSection } from './sections/price-list-section'
 import { PromoSection } from './sections/promo-section'
 import { ResultsSection } from './sections/results-section'
 import { ServicesSection } from './sections/services-section'
@@ -49,6 +50,7 @@ export default function Page() {
       <HighlightsSection />
       <PromoSection />
       <ServicesSection />
+      <PriceListSection />
       <DoctorSection />
       <BrandAmbassadorSection />
       <ResultsSection />
