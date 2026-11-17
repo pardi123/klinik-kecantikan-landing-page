@@ -3,7 +3,8 @@
 
 export const clinic = {
   name: 'Zeeta Beauty Care',
-  tagline: 'Klinik Kecantikan & Estetika',
+  tagline: 'Klinik Pratama · Beauty Care Jambi',
+  since: 2020,
   address:
     'Jalan Gajah Mada, RT.13, Kelurahan Rengas Condong, Kecamatan Muara Bulian, Kabupaten Batang Hari, Jambi',
   hours: '[Senin–Sabtu, 10.00–20.00]',
@@ -24,22 +25,50 @@ export const photos = {
   logo: image('logo-zeeta.png'),
   hero: image('resepsionis.jpg'),
   ambassadorPortrait: image('ambassador-2.jpg'),
-  ambassadorPose: image('ambassador-1.jpg'),
+  promo: image('promo-healthy-face.jpg'),
   consultation: image('konsultasi.jpg'),
 }
 
 export const navLinks = [
   { href: '#layanan', label: 'Layanan' },
   { href: '#dokter', label: 'Dokter' },
+  { href: '#brand-ambassador', label: 'Ambassador' },
   { href: '#hasil', label: 'Hasil' },
   { href: '#booking', label: 'Kontak' },
 ]
 
+/** "Why Zeeta" dari company profile klinik. */
 export const highlights = [
-  { title: 'Ditangani dokter', body: 'Setiap tindakan oleh dokter estetika bersertifikat.' },
-  { title: 'Produk terdaftar BPOM', body: 'Skincare dan bahan treatment yang aman.' },
-  { title: 'Analisa kulit', body: 'Rencana perawatan sesuai jenis kulitmu.' },
-  { title: 'Ruang privat', body: 'Nyaman, bersih, dan tenang.' },
+  {
+    title: 'Expert',
+    body: 'Dokter berpengalaman & ahli di bidang kecantikan hadirkan solusi perawatan yang tepat.',
+  },
+  {
+    title: 'Kombinasi Metode Perawatan',
+    body: 'Kombinasi metode perawatan yang teruji untuk hasil yang paling efektif.',
+  },
+  {
+    title: 'Personalize & Customize',
+    body: 'Perawatan & skincare disesuaikan dengan kondisi unik kulit wajah setiap pasien.',
+  },
+]
+
+/** Angka dari company profile klinik. */
+export const stats = [
+  { value: 2000, suffix: '+', label: 'Pasien' },
+  { value: 60, suffix: '+', label: 'Jenis treatment' },
+  { value: 20, suffix: '+', label: 'Produk BPOM' },
+]
+
+export const about =
+  'Zeeta Beauty Care Jambi adalah klinik kecantikan yang berfokus pada kesehatan kulit wajah di Kabupaten Batang Hari dan sekitarnya. Perawatan estetik dan skincare disesuaikan dengan jenis, kondisi, dan kebutuhan kulit setiap pasien, dalam pengawasan dokter.'
+
+export const ambassadors = [
+  { name: 'Yayang Nurizky Ramadhani', image: image('ba-yayang.jpg') },
+  { name: 'Salwa Khairotunnisa', image: image('ba-salwa.jpg') },
+  { name: 'Miftahul Khoiriah', image: image('ba-miftahul.jpg') },
+  { name: 'Anggi Datau', image: image('ba-anggi.jpg') },
+  { name: 'Leni Ari Minanti', image: image('ba-leni.jpg') },
 ]
 
 export type Service = {

@@ -80,13 +80,14 @@ export function HeroSection() {
         >
           <img
             src={photos.ambassadorPortrait}
-            alt={`Brand ambassador ${clinic.name}`}
+            alt="Salwa Khairotunnisa, brand ambassador Zeeta"
             width={436}
             height={326}
             className="h-[165px] w-full object-cover"
           />
-          <figcaption className="px-3 py-2 text-xs font-semibold tracking-wide text-gray-600">
-            Brand Ambassador
+          <figcaption className="flex flex-col px-3 py-2">
+            <span className="text-sm font-semibold text-gray-800">Salwa Khairotunnisa</span>
+            <span className="text-xs text-gray-600">Brand Ambassador</span>
           </figcaption>
         </motion.figure>
       </motion.div>

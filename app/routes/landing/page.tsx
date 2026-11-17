@@ -3,11 +3,12 @@ import { clinic } from '~/constants/clinic'
 import { type BookingResult, bookingSchema } from '~/schemas/booking'
 import { BookingApiError, createBooking } from '~/services/booking'
 import type { Route } from './+types/page'
-import { AmbassadorSection } from './sections/ambassador-section'
 import { BookingSection } from './sections/booking-section'
+import { BrandAmbassadorSection } from './sections/brand-ambassador-section'
 import { DoctorSection } from './sections/doctor-section'
 import { HeroSection } from './sections/hero-section'
 import { HighlightsSection } from './sections/highlights-section'
+import { PromoSection } from './sections/promo-section'
 import { ResultsSection } from './sections/results-section'
 import { ServicesSection } from './sections/services-section'
 
@@ -46,9 +47,10 @@ export default function Page() {
     <main id="top">
       <HeroSection />
       <HighlightsSection />
-      <AmbassadorSection />
+      <PromoSection />
       <ServicesSection />
       <DoctorSection />
+      <BrandAmbassadorSection />
       <ResultsSection />
       <BookingSection />
     </main>
