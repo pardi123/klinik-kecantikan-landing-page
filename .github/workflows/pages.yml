@@ -29,11 +29,11 @@ jobs:
               env:
                   GITHUB_PAGES: "true"
                   BASE_PATH: /${{ github.event.repository.name }}/
-            # Prerender menulis halaman ke build/client/<repo>/; Pages menyajikan build/client
-      # di /<repo>/, jadi pindahkan ke root. Fallback SPA jadi 404.html.
-      - run: |
-          mv build/client/index.html build/client/404.html
-          mv build/client/${{ github.event.repository.name }}/index.html build/client/index.html
+            # Prerender menulis halaman ke build/client/<repo>/, sedangkan Pages menyajikan
+            # build/client di /<repo>/: pindahkan ke root, fallback SPA jadi 404.html.
+            - run: |
+                  mv build/client/index.html build/client/404.html
+                  mv build/client/${{ github.event.repository.name }}/index.html build/client/index.html
             - uses: actions/upload-pages-artifact@v3
               with:
                   path: build/client
