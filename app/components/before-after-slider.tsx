@@ -5,11 +5,13 @@ import { ImageSlot } from '~/components/image-slot'
 type BeforeAfterSliderProps = {
   before?: string
   after?: string
+  /** Nama treatment untuk teks alternatif foto. */
+  label?: string
   className?: string
 }
 
 /** Dua foto ditumpuk; foto "sebelum" dipotong sesuai posisi slider. */
-export function BeforeAfterSlider({ before, after, className }: BeforeAfterSliderProps) {
+export function BeforeAfterSlider({ before, after, label, className }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50)
 
   function handleSlide(event: React.ChangeEvent<HTMLInputElement>) {
@@ -18,10 +20,21 @@ export function BeforeAfterSlider({ before, after, className }: BeforeAfterSlide
 
   return (
     <div className={className}>
-      <div className="relative h-[360px] overflow-hidden rounded-2xl">
-        <ImageSlot src={after} alt="Foto sesudah" className="absolute inset-0 h-full w-full" />
+      {/* Foto pasien potret 4:5. */}
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+        <ImageSlot
+          src={after}
+          alt={`Foto sesudah${label ? ` ${label}` : ''}`}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full"
+        />
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
-          <ImageSlot src={before} alt="Foto sebelum" className="bg-blush h-full w-full" />
+          <ImageSlot
+            src={before}
+            alt={`Foto sebelum${label ? ` ${label}` : ''}`}
+            loading="lazy"
+            className="bg-blush h-full w-full"
+          />
         </div>
         <div
           aria-hidden="true"

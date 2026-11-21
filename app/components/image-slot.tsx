@@ -4,12 +4,13 @@ type ImageSlotProps = {
   src?: string
   alt: string
   className?: string
+  loading?: 'lazy' | 'eager'
 }
 
 /** Foto, atau kotak placeholder berlabel selama foto asli belum ada. */
-export function ImageSlot({ src, alt, className }: ImageSlotProps) {
+export function ImageSlot({ src, alt, className, loading }: ImageSlotProps) {
   if (src) {
-    return <img src={src} alt={alt} className={cn('object-cover', className)} />
+    return <img src={src} alt={alt} loading={loading} className={cn('object-cover', className)} />
   }
 
   return (

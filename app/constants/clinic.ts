@@ -101,15 +101,40 @@ export const doctor: { name: string; bio: string; image?: string } = {
   bio: 'Dokter umum dengan sertifikasi internasional CIBTAC di bidang perawatan kecantikan. dr. Mairezi memadukan dasar ilmu kedokteran dengan standar terapi kecantikan internasional, jadi setiap perawatan dimulai dari pemeriksaan kulit yang teliti, dirancang sesuai kebutuhanmu, dan dikerjakan dengan aman. Ia percaya kulit sehat tidak perlu instan, yang penting tepat dan bertahan lama.',
 }
 
-export const beforeAfter: {
+/** Foto sebelum/sesudah pasien asli (mata ditutup logo). `sessions` hanya diisi bila jumlah sesi diketahui. */
+export const beforeAfters: {
+  id: string
   treatment: string
-  sessions: string
-  before?: string
-  after?: string
-} = {
-  treatment: '[Nama treatment]',
-  sessions: '[jumlah sesi]',
-}
+  sessions?: string
+  before: string
+  after: string
+}[] = [
+  {
+    id: 'facial-hydra',
+    treatment: 'Facial Hydra',
+    before: image('hasil-facial-hydra-before.jpg'),
+    after: image('hasil-facial-hydra-after.jpg'),
+  },
+  {
+    id: 'peeling-super-lightening',
+    treatment: 'Peeling Super Lightening',
+    before: image('hasil-peeling-before.jpg'),
+    after: image('hasil-peeling-after.jpg'),
+  },
+  {
+    id: 'clarifying-facial',
+    treatment: 'Clarifying Facial',
+    before: image('hasil-clarifying-before.jpg'),
+    after: image('hasil-clarifying-after.jpg'),
+  },
+  {
+    id: 'skinbooster-dna-salmon',
+    treatment: 'Skinbooster DNA Salmon',
+    sessions: '2× sesi',
+    before: image('hasil-skinbooster-before.jpg'),
+    after: image('hasil-skinbooster-after.jpg'),
+  },
+]
 
 export const testimonials = [
   {

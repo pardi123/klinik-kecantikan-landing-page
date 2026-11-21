@@ -1,7 +1,7 @@
 import { BeforeAfterSlider } from '~/components/before-after-slider'
 import { Reveal } from '~/components/reveal'
 import { TestimonialCarousel } from '~/components/testimonial-carousel'
-import { beforeAfter } from '~/constants/clinic'
+import { beforeAfters } from '~/constants/clinic'
 
 export function ResultsSection() {
   return (
@@ -11,19 +11,26 @@ export function ResultsSection() {
           Hasil &amp; cerita pasien
         </h2>
       </Reveal>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-        <Reveal>
-          <figure className="flex h-full flex-col rounded-[20px] border border-gray-200 bg-white p-4">
-            <BeforeAfterSlider before={beforeAfter.before} after={beforeAfter.after} />
-            <figcaption className="mt-1 text-sm text-gray-600">
-              {beforeAfter.treatment} · {beforeAfter.sessions}
-            </figcaption>
-          </figure>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <TestimonialCarousel />
-        </Reveal>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {beforeAfters.map((item, i) => (
+          <Reveal key={item.id} delay={i * 0.05}>
+            <figure className="flex h-full flex-col rounded-[20px] border border-gray-200 bg-white p-4">
+              <BeforeAfterSlider before={item.before} after={item.after} label={item.treatment} />
+              <figcaption className="mt-1 text-sm font-medium text-gray-800">
+                {item.treatment}
+                {item.sessions && (
+                  <span className="font-normal text-gray-600"> · {item.sessions}</span>
+                )}
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
       </div>
+      <Reveal>
+        <div className="mx-auto w-full max-w-2xl">
+          <TestimonialCarousel />
+        </div>
+      </Reveal>
     </section>
   )
 }
