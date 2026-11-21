@@ -136,24 +136,52 @@ export const beforeAfters: {
   },
 ]
 
+/**
+ * Komentar asli pasien dari fitur rating treatment di sistem klinik (backoffice, Sep–Nov 2026),
+ * dikutip apa adanya; nama pasien hanya inisial. `ratingId` = treatment_ratings.id sumbernya.
+ */
 export const testimonials = [
   {
-    id: 'testimoni-1',
-    quote: '[Kutipan testimoni asli dari pasien.]',
-    author: '[Nama pasien]',
-    treatment: '[Treatment]',
+    id: 'testimoni-29',
+    ratingId: 29,
+    quote: 'Sangat puas dengan hasil treatmentnya',
+    author: 'Pasien H.',
+    treatment: 'Facial Oxyspray',
   },
   {
-    id: 'testimoni-2',
-    quote: '[Kutipan testimoni asli dari pasien.]',
-    author: '[Nama pasien]',
-    treatment: '[Treatment]',
+    id: 'testimoni-275',
+    ratingId: 275,
+    quote: 'Sangat ramah dan teliti',
+    author: 'Pasien D.',
+    treatment: 'Clarifying Facial',
   },
   {
-    id: 'testimoni-3',
-    quote: '[Kutipan testimoni asli dari pasien.]',
-    author: '[Nama pasien]',
-    treatment: '[Treatment]',
+    id: 'testimoni-36',
+    ratingId: 36,
+    quote: 'Masyaallah enak banget',
+    author: 'Pasien P.',
+    treatment: 'Skin Booster DNA Salmon',
+  },
+  {
+    id: 'testimoni-225',
+    ratingId: 225,
+    quote: 'pelayanannya baik, ramah, dan sangat teliti',
+    author: 'Pasien E.',
+    treatment: 'Facial Acne',
+  },
+  {
+    id: 'testimoni-38',
+    ratingId: 38,
+    quote: 'Memuaskan, karyawan ramah, next time treatment lagi',
+    author: 'Pasien M.',
+    treatment: 'Facial Basic',
+  },
+  {
+    id: 'testimoni-242',
+    ratingId: 242,
+    quote: 'Pelayanan prima.. Therapist ramah sekalii',
+    author: 'Pasien T.',
+    treatment: 'Facial Diamond Peel',
   },
 ]
 
